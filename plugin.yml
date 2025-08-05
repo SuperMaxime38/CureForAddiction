@@ -1,0 +1,15 @@
+name: CureForAddiction
+author: SuperMaxime38
+version: 1.0.0
+main: fr.maxime38.cfa.Main
+description: This plugin will make you leave this game
+api-version: 1.13
+softdepend: [WorldEdit]
+commands:
+  cfa:
+    description: What is that plugin
+  cfadev:
+    description: Command for the plugin devs, you can't use it :)
+    permission: you.cant.use.this.command
+  gamerule:
+    description: This plugin is blocking you from editing gamerules, please set 'enable-cheats' to true in config if order to use this command

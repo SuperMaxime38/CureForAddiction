@@ -1,0 +1,9 @@
+# You don't need to config anything to suffer :)
+# Oh The plugin sets the gamerules by itself dw (that means you CAN'T change the gamerules)
+# By the way get updates at : <url>
+
+allow-cheats: false
+better-boss: true
+
+# Don't touch that !
+hasBeenGenerated: false
