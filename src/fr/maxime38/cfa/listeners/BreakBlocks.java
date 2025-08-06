@@ -1,14 +1,15 @@
 package fr.maxime38.cfa.listeners;
 
 
-import fr.maxime38.cfa.Main;
-import fr.maxime38.cfa.utils.VoiceLines;
 import java.util.Collection;
 import java.util.Random;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
+
+import fr.maxime38.cfa.Main;
+import fr.maxime38.cfa.utils.RandomBetween;
+import fr.maxime38.cfa.utils.VoiceLines;
 
 public class BreakBlocks implements Listener {
   static Main main;
@@ -118,10 +124,20 @@ public class BreakBlocks implements Listener {
       case COBBLESTONE:
         stoneMining(b.getLocation());
         break;
+      case POTATOES:
+    	  fuckUpHarvest(p, b, Material.POTATOES);
+        break;
+      case WHEAT:
+    	  fuckUpHarvest(p, b, Material.WHEAT);
+        break;
+      case CARROTS:
+    	  fuckUpHarvest(p, b, Material.CARROTS);
+        break;
+      case BEETROOTS:
+    	  fuckUpHarvest(p, b, Material.BEETROOTS);
+        break;
       default:
         return;
-      case POTATO:
-        break;
     } 
     int luck = rdm.nextInt(100);
     if (luck < 20) {
@@ -161,5 +177,47 @@ public class BreakBlocks implements Listener {
     if (luck >= 99)
       for (int i = 0; i < 10; i++)
         loc.getWorld().spawnEntity(loc.add(0.5D, 0.5D, 0.5D), EntityType.SILVERFISH);  
+  }
+  
+  public static void fuckUpHarvest(Player p, Block b, Material mat) {
+	Random rdm = new Random();
+	int luck = rdm.nextInt(100);
+	World w = b.getWorld();
+	int y = b.getY();
+	System.out.println(luck);
+	if (luck < 10) {
+		for(int x = b.getX() - 5; x < b.getX() + 6; x++) {
+		  for(int z = b.getZ() - 5; z < b.getZ() + 6; z++) {
+			  if(w.getBlockAt(x, y, z).getType().equals(mat)) { // Que c'est le même type de crop
+				  w.getBlockAt(x, y, z).setType(Material.AIR);
+			  }
+		  }
+		}
+		
+		p.sendMessage(VoiceLines.getDestroyedCropsLine(0));
+		return;
+	}
+	
+	if(luck > 95) {
+		b.setType(Material.LAVA);
+		p.sendMessage(VoiceLines.getDestroyedCropsLine(1));
+		return;
+	}
+	
+	if( luck > 10 && luck < 30) {
+		if(mat.equals(Material.POTATOES)) {
+			for(int i = 0; i < luck; i++) {
+				b.setType(Material.AIR);
+				Item patate = w.dropItem(b.getLocation(), new ItemStack(Material.POISONOUS_POTATO));
+				patate.setVelocity(new Vector(RandomBetween.randomDouble(-0.1, 0.1), RandomBetween.randomDouble(0.5, 1.25), RandomBetween.randomDouble(-0.1, 0.1)));
+			}
+
+			p.sendMessage(VoiceLines.getDestroyedCropsLine(2));
+		}
+	}
+	
+	
+	  
+	  
   }
 }

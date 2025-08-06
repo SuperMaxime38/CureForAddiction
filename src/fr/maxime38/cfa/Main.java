@@ -21,7 +21,7 @@ public class Main extends JavaPlugin {
     getServer().getPluginManager().registerEvents(new BreakBlocks(this), this);
     getServer().getPluginManager().registerEvents(new PlaceBlocks(), this);
     getServer().getPluginManager().registerEvents(new Interact(), this);
-    getServer().getPluginManager().registerEvents(new Move(), this);
+    getServer().getPluginManager().registerEvents(new Move(this), this);
     getServer().getPluginManager().registerEvents(new Damage(this), this);
     getServer().getPluginManager().registerEvents(new EndBoss(this), this);
     getServer().getPluginManager().registerEvents(new ProjectileLaunch(this), this);

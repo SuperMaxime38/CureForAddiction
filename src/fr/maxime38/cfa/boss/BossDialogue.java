@@ -2,8 +2,8 @@ package fr.maxime38.cfa.boss;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -18,7 +18,7 @@ public class BossDialogue {
   }
   
   public void sendMessage(String msg) {
-    for (Player p : this.players)
+    for (Player p : players)
       p.sendMessage(msg); 
   }
   
@@ -27,16 +27,16 @@ public class BossDialogue {
         long timer = 0L;
         
         public void run() {
-          if (this.timer == 0L)
-            BossDialogue.this.sendMessage("§eI feel... §7tired"); 
-          if (this.timer == 2L) {
-            BossDialogue.this.sendMessage("§7It's really exhausting to fly all day long");
+          if (timer == 0L)
+            sendMessage("§eI feel... §7tired"); 
+          if (timer == 2L) {
+            sendMessage("§7It's really exhausting to fly all day long");
             cancel();
             System.gc();
           } 
           this.timer++;
         }
-      }).runTaskTimer((Plugin)this.main, 0L, 20L);
+      }).runTaskTimer(main, 0L, 20L);
   }
   
   public void endBossPhase3() {
@@ -44,19 +44,19 @@ public class BossDialogue {
         long timer = 0L;
         
         public void run() {
-          if (this.timer == 0L)
-            BossDialogue.this.sendMessage("§cENOUGH !"); 
-          if (this.timer == 1L)
-            BossDialogue.this.sendMessage("§cYou're very annoying you know ?"); 
-          if (this.timer == 3L)
-            BossDialogue.this.sendMessage("§cLet's end this quickly"); 
-          if (this.timer == 4L) {
-            BossDialogue.this.sendMessage("My minions won't even need my help");
+          if (timer == 0L)
+            sendMessage("§cENOUGH !"); 
+          if (timer == 1L)
+            sendMessage("§cYou're very annoying you know ?"); 
+          if (timer == 3L)
+            sendMessage("§cLet's end this quickly"); 
+          if (timer == 4L) {
+            sendMessage("My minions won't even need my help");
             cancel();
             System.gc();
           } 
-          this.timer++;
+          timer++;
         }
-      }).runTaskTimer((Plugin)this.main, 0L, 10L);
+      }).runTaskTimer(main, 0L, 10L);
   }
 }

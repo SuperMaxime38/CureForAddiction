@@ -146,7 +146,7 @@ public class Damage implements Listener {
 		break;
       case IRON_GOLEM:
         luck = rdm.nextInt(100);
-        if (luck < 10) {
+        if (luck < 15) {
           double x = loc.getX() - locE.getX();
           double z = loc.getZ() - locE.getZ();
           ent.setVelocity(ent.getVelocity().add(new Vector(x / 2.0D, 1.2D, z / 2.0D)));
@@ -189,7 +189,8 @@ public class Damage implements Listener {
 					  ((PigZombie) entity).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 180, 2));
 					  
 					  if(luck < 5) { // cumulatif
-						  locE.getWorld().spawnEntity(locE, EntityType.ZOMBIFIED_PIGLIN);
+						  PigZombie e2 = (PigZombie) locE.getWorld().spawnEntity(locE, EntityType.ZOMBIFIED_PIGLIN);
+						  e2.setTarget(p);
 					  }
 				  }
 			  }
@@ -442,7 +443,7 @@ public class Damage implements Listener {
   
   @EventHandler
   public void onItemMerge(ItemMergeEvent e) {
-    if (e.getEntity().getItemStack().getType() == Material.FEATHER && 
+    if ((e.getEntity().getItemStack().getType() == Material.FEATHER || e.getEntity().getItemStack().getType() == Material.POISONOUS_POTATO) && 
       !e.getEntity().isOnGround())
       e.setCancelled(true); 
   }

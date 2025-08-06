@@ -45,9 +45,7 @@ public class DevCommand implements CommandExecutor {
           return true;
       } 
     } 
-    if (args.length == 
-      
-      2) {
+    if (args.length == 2) {
       String str2;
       String str1;
       switch ((str1 = args[0]).hashCode()) {
